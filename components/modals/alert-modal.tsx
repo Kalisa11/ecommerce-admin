@@ -3,16 +3,16 @@
 import { useEffect, useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Modal } from "@/components/ui/modal";
-import { AlertTriangle } from "lucide-react";
 
 interface Props {
   isOpen: boolean;
+  item: "Billboard" | "Store";
   loading: boolean;
   onClose: () => void;
   onConfirm: () => void;
 }
 
-const AlertModal = ({ isOpen, loading, onClose, onConfirm }: Props) => {
+const AlertModal = ({ isOpen, item, loading, onClose, onConfirm }: Props) => {
   const [isMounted, setIsMounted] = useState(false);
 
   useEffect(() => {
@@ -23,8 +23,8 @@ const AlertModal = ({ isOpen, loading, onClose, onConfirm }: Props) => {
 
   return (
     <Modal
-      title="Delete Store"
-      description="Are you sure you want to delete this store? This action is irreversible."
+      title={`Delete ${item}`}
+      description="Are you sure you want to proceed? This action is irreversible."
       isOpen={isOpen}
       onClose={onClose}
     >

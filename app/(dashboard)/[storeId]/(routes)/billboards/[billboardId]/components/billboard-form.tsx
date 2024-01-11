@@ -88,6 +88,7 @@ const BillboardForm = ({ billboard }: { billboard: Billboard | null }) => {
   return (
     <>
       <AlertModal
+        item="Billboard"
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={deleteBillboard}
@@ -161,7 +162,6 @@ const BillboardForm = ({ billboard }: { billboard: Billboard | null }) => {
           </Button>
         </form>
       </Form>
-      <Separator />
     </>
   );
 };

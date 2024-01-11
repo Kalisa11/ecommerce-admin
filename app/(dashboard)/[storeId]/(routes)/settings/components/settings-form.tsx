@@ -74,6 +74,7 @@ const SettingsForm = ({ store }: { store: Store }) => {
   return (
     <>
       <AlertModal
+        item="Store"
         isOpen={open}
         onClose={() => setOpen(false)}
         onConfirm={deleteStore}
