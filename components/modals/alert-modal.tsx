@@ -6,7 +6,7 @@ import { Modal } from "@/components/ui/modal";
 
 interface Props {
   isOpen: boolean;
-  item: "Billboard" | "Store" | "Category" | "Product" | "Size";
+  item: "Billboard" | "Store" | "Category" | "Product" | "Size" | "Color";
   loading: boolean;
   onClose: () => void;
   onConfirm: () => void;
