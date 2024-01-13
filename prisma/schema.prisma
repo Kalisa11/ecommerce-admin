@@ -19,6 +19,7 @@ model Store {
   colors     Color[]
   categories Category[]
   products   Product[]
+  orders     Order[]     @relation("StoreToOrder")
   createdAt  DateTime    @default(now())
   updatedAt  DateTime    @updatedAt
   billboards Billboard[] @relation("StoreToBillboard")
@@ -90,25 +91,53 @@ model Image {
 }
 
 model Product {
-  id          String   @id @default(uuid())
-  name        String
-  price       Decimal
-  isFeatured  Boolean  @default(false)
-  isArchived  Boolean  @default(false)
-  storeId     String
-  categoryId  String
-  sizeId      String
-  colorId     String
-  images      Image[]
-  createdAt   DateTime @default(now())
-  updatedAt   DateTime @updatedAt
-  Size        Size     @relation(fields: [sizeId], references: [id])
-  Store       Store    @relation(fields: [storeId], references: [id])
-  Category    Category @relation(fields: [categoryId], references: [id])
-  Color       Color    @relation(fields: [colorId], references: [id])
+  id         String      @id @default(uuid())
+  name       String
+  price      Decimal
+  isFeatured Boolean     @default(false)
+  isArchived Boolean     @default(false)
+  storeId    String
+  categoryId String
+  sizeId     String
+  colorId    String
+  images     Image[]
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+  orderItems OrderItem[]
+  Size       Size        @relation(fields: [sizeId], references: [id])
+  Store      Store       @relation(fields: [storeId], references: [id])
+  Category   Category    @relation(fields: [categoryId], references: [id])
+  Color      Color       @relation(fields: [colorId], references: [id])
 
   @@index([storeId], name: "storeId")
   @@index([categoryId], name: "categoryId")
   @@index([sizeId], name: "sizeId")
   @@index([colorId], name: "colorId")
+}
+
+model Order {
+  id         String      @id @default(uuid())
+  storeId    String // Foreign Key to Store
+  store      Store       @relation("StoreToOrder", fields: [storeId], references: [id])
+  orderItems OrderItem[] // Relation to OrderItem model
+  isPaid     Boolean     @default(false)
+  phone      String      @default("")
+  address    String      @default("")
+  createdAt  DateTime    @default(now())
+  updatedAt  DateTime    @updatedAt
+
+  @@index([storeId])
+}
+
+model OrderItem {
+  id        String   @id @default(uuid())
+  orderId   String // Foreign Key to Order
+  productId String // Foreign Key to Product
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  Order     Order    @relation(fields: [orderId], references: [id])
+  Product   Product  @relation(fields: [productId], references: [id])
+
+  @@index([orderId], name: "orderId")
+  @@index([productId], name: "productId")
 }
