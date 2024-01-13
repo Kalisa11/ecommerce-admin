@@ -22,12 +22,6 @@ const MainNav = ({
       label: "Billboards",
       active: pathname === `/${params.storeId}/billboards`,
     },
-
-    {
-      href: `/${params.storeId}/products`,
-      label: "Products",
-      active: pathname === `/${params.storeId}/products`,
-    },
     {
       href: `/${params.storeId}/categories`,
       label: "Categories",
@@ -42,6 +36,11 @@ const MainNav = ({
       href: `/${params.storeId}/colors`,
       label: "Colors",
       active: pathname === `/${params.storeId}/colors`,
+    },
+    {
+      href: `/${params.storeId}/products`,
+      label: "Products",
+      active: pathname === `/${params.storeId}/products`,
     },
     {
       href: `/${params.storeId}/settings`,
